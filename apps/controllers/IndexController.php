@@ -10,6 +10,8 @@ class IndexController extends BaseController {
         $ok3 = $this->request->get('ok');
         $ok4 = $this->request->get('ok2');
 
+        $time= date('Y-m-d H:i:s');
+
         //print_x($ok, $ok2, $ok3, $ok4);
 
         //return $this->response->setContent('Hello world');
@@ -21,7 +23,11 @@ class IndexController extends BaseController {
 		//print_r($c);
 		//echo "<hr>";
 
-
+        $this->view->setVar('ok1', $ok);
+        $this->view->setVar('ok2', $ok2);
+        $this->view->setVar('ok3', $ok3);
+        $this->view->setVar('ok4', $ok4);
+        $this->view->setVar('time', $time);
 		//logs(M('log')->_sql());
     }
 

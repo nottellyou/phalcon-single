@@ -29,13 +29,20 @@ class BaseController extends Controller {
 
             //match the Index:index
             if(!empty($arr_rules[$rule2])){
-                if ($this->view->getCache()->exists($arr_rules[$rule2][0])) {
+                $cached_time = $this->cacheData->getLifetime();
+                $max_age     = $arr_rules[$rule2][1] - $cached_time;
+                header('Cache-Control:max-age='.$max_age,true);
+                //print_x($this->viewCache->isFresh(),$this->view->getCache()->exists($arr_rules[$rule2][0]));
+                if ($this->view->getCache()->exists($arr_rules[$rule2][0]) && $this->viewCache->isFresh()) {
                     return $this->view->getContent();
                 }else{
                     $this->view->cache(['key'=>$arr_rules[$rule2][0], 'lifetime'=>$arr_rules[$rule2][1] ]);
                     return true;
                 }
             }elseif(!empty($arr_rules[$rule1])){ //match all action in Index:
+                $cached_time = $this->cacheData->getLifetime();
+                $max_age     = $arr_rules[$rule1][1] - $cached_time;
+                header('Cache-Control:max-age='.$max_age,true);
                 if ($this->view->getCache()->exists($arr_rules[$rule1][0])) {
                     return $this->view->getContent();
                 }else{

@@ -16,10 +16,10 @@ class IndexController extends BaseController {
         echo "<h1>Hello Word!</h1>";
 
 		//include 'PDOMysql.class.php';
-        $where = ['id'=>16];
-		$c = M('log')->where($where)->find();
-		print_r($c);
-		echo "<hr>";
+        //$where = ['id'=>16];
+		//$c = M('log')->where($where)->find();
+		//print_r($c);
+		//echo "<hr>";
 
 
 		//logs(M('log')->_sql());

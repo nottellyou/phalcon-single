@@ -1,0 +1,32 @@
+
+<?php echo $this->view->getContent();?>
+
+
+
+<?php
+
+echo 'This is a index!<br>fdsf<br>';
+echo $this->tag->linkTo(
+    "/index/signup",
+    "Sign Up Here!"
+);
+
+
+?>
+
+<hr>
+<a href="/index/index/ok/55555/nook/3333333">超长URL测试</a>
+
+
+
+<hr>
+<?= $this->tag->linkto(['/index/upload_form', '上传文件测试']) ?>
+
+<hr>
+<?= $this->tag->linkto(['/index/signup', 'Sign Up Here!']) ?>
+
+<hr>
+<?php $fruits = ['Apple', 'Banana', 'Orange']; ?>
+<?php $name = $fruits[0]; ?>
+
+<?= $name ?>

@@ -1,0 +1,32 @@
+
+<?php echo $this->view->getContent();?>
+
+
+
+<?php
+
+echo 'This is a index!<br>fdsf<br>';
+echo $this->tag->linkTo(
+    "/index/signup",
+    "Sign Up Here!"
+);
+
+
+?>
+
+<hr>
+<a href="/index/index/ok/55555/nook/3333333">超长URL测试</a>
+
+
+
+<hr>
+{{ linkTo(['/index/upload_form', '上传文件测试'])}}
+
+<hr>
+{{ linkTo(['/index/signup', 'Sign Up Here!']) }}
+
+<hr>
+{% set fruits = ['Apple', 'Banana', 'Orange'] %}
+{% set name = fruits[0] %}
+
+{{ name }}

@@ -9,17 +9,18 @@ class BaseController extends Controller {
         //$dispatcher->getControllerName() and $dispatcher->getActionName() is null;
         //$dispatcher = new Dispatcher();
         //print_x($dispatcher, $dispatcher->getControllerName(), $dispatcher->getActionName());
-        //if(!method_exists($dispatcher->getControllerName(), $dispatcher->getActionName())){
-        //    header("HTTP/1.0 404 Not Found");
+        //if(!method_exists($dispatcher->getControllerName().'Controller', $dispatcher->getActionName().'Action')){
+        //    header("HTTP/1.0 404 Not Found");//这样判断是行不通的
         //    exit;
         //}
     }
 
     public function beforeExecuteRoute(Dispatcher $dispatcher)
     {
-        $key  = $dispatcher->getControllerName() . '-' . $dispatcher->getActionName() . '-' . implode('-' , $dispatcher->getParams());
+        //$key  = $dispatcher->getControllerName() . '-' . $dispatcher->getActionName() . '-' . implode('-' , $dispatcher->getParams());
 
-        //check if this route in html_cache_rules
+
+        //check if this route is in html_cache_rules
         $arr_html_cache_rules = $this->html_cache_rules;
         if($arr_html_cache_rules['HTML_CACHE_ON'] == 'on'){
             $rule1  = ucfirst($dispatcher->getControllerName()) . ':';

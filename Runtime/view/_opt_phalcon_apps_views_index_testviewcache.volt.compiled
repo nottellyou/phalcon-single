@@ -1,0 +1,6 @@
+
+ 
+view cache! <br>
+
+<?= $sum ?>
+

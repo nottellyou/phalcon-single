@@ -71,20 +71,21 @@ $config  = new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . "/apps/config/conf
 
                         return $volt;
                     },
-                    //'.volt'  => function($view, $di) use ($config) {
-                    //    $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
-                    //
-                    //    $volt->setOptions(['compiledPath'      => dirname(APPLICATION_PATH) . '/Runtime/view/',
-                    //                       'compiledExtension' => '.compiled',
-                    //                       'compileAlways'     => true
-                    //    ]);
-                    //
-                    //    $compiler = $volt->getCompiler();
-                    //    $compiler->addFilter('floor', 'floor');
-                    //    $compiler->addFunction('range', 'range');
-                    //
-                    //    return $volt;
-                    //},
+                    '.volt'  => function($view, $di) use ($config) {
+                        $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
+                    
+                        $volt->setOptions(['compiledPath'      => $config->application->compiledPath,
+                                           'compiledExtension' => '.compiled',
+                                           'compiledSeparator' => '_',
+                                           'compileAlways'     => true
+                        ]);
+                    
+                        $compiler = $volt->getCompiler();
+                        $compiler->addFilter('floor', 'floor');
+                        $compiler->addFunction('range', 'range');
+                    
+                        return $volt;
+                    },
                 ]
         );
         //$view->disableLevel(

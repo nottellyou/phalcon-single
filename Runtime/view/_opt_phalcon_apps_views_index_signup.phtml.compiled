@@ -1,0 +1,10 @@
+
+<?php echo $this->getContent(); ?>
+
+signup view html!
+
+<?= $this->tag->image(['img/hello.gif']) ?>
+
+<hr>
+
+<?= $signup_time ?>

@@ -35,6 +35,9 @@ class IndexController extends BaseController {
 
     	echo 'hi, here is signup action, no html!';
 
+        $time= date('Y-m-d H:i:s');
+        $this->view->setVar('signup_time', $time);
+
 
     	$this->view->pick("Index/signup");
     	// $this->view->cache(
@@ -71,20 +74,16 @@ class IndexController extends BaseController {
     }
 	public function testviewcacheAction()
 	{
-		if( $this->view->getCache()->exists( __CLASS__ . __FUNCTION__ ) )//检查缓存是否存在
-		{
-			return $this->response->setContent( $this->view->getCache()->get(  __CLASS__ . __FUNCTION__ ));	//取缓存
-		}
+		//if( $this->view->getCache()->exists( __CLASS__ . __FUNCTION__ ) )//检查缓存是否存在
+		//{
+		//	return $this->response->setContent( $this->view->getCache()->get(  __CLASS__ . __FUNCTION__ ));	//取缓存
+		//}
 
-		$iSum = 0;
-		for( $i = 1; $i < 65536; ++$i )
-		{
-			$iSum += $i;
-		}
-		
+		$iSum = date('Y-m-d H:i:s');
+
 		$this->view->setVar( 'sum', $iSum );
 
-		$this->view->cache( array( 'lifetime' => 240, 'key' => __CLASS__ . __FUNCTION__ ) );//设置缓存
+		//$this->view->cache( array( 'lifetime' => 240, 'key' => __CLASS__ . __FUNCTION__ ) );//设置缓存
     }
 
     public function upload_formAction(){

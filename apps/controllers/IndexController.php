@@ -86,6 +86,13 @@ class IndexController extends BaseController {
 		//$this->view->cache( array( 'lifetime' => 240, 'key' => __CLASS__ . __FUNCTION__ ) );//设置缓存
     }
 
+    //测试模板extends功能
+    public function extendsview(){
+
+    }
+
+
+
     public function upload_formAction(){
         //自动加载视图
     }

@@ -33,11 +33,11 @@ $config  = new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . "/apps/config/conf
         '../apps/controllers/',
         '../apps/models/',
         '../apps/libs/',//好像没用
+    ],true);
+    $loader->setExtensions([
+            "php",
+            "Lib.class.php",
     ]);
-    //$loader->setExtensions([
-    //        "php",
-    //        "lib.class.php",
-    //]);
     $loader->registerFiles([
         '../apps/libs/PDOMysql.lib.class.php',
     ]);
@@ -49,7 +49,7 @@ $config  = new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . "/apps/config/conf
     $di = new FactoryDefault();
 
     // 实例化View 赋值给DI的view
-    $di->set('view', function () use($config) {
+    $di->setShared('view', function () use($config) {
         $view = new \Phalcon\Mvc\View();
         $view->setViewsDir('../apps/views/');
         $view->registerEngines(
@@ -115,7 +115,7 @@ $config  = new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . "/apps/config/conf
     });
 
 
-    $di->set('dispatcher', function(){
+    $di->setShared('dispatcher', function(){
          //创建一个事件管理
         $eventsManager = new EventsManager();
  
@@ -142,7 +142,7 @@ $config  = new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . "/apps/config/conf
     });
 
     //注册session
-    $di->set('session', function () {
+    $di->setShared('session', function () {
         $session = new Session();
         $session->start();
         return $session;
@@ -171,6 +171,16 @@ $config  = new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . "/apps/config/conf
     $di->setShared('html_cache_rules', function() use($config) {
         return include($config->application->configDir.'html_cache_rules.php');
     });
+
+
+    $di->set("crypt", function () {
+        $crypt = new Crypt();
+        // Set a global encryption key
+        $crypt->setKey("%31.1e$i86e$f!8jz");
+        return $crypt;
+    }, true);
+
+
 
 
 try {

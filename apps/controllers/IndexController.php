@@ -87,11 +87,13 @@ class IndexController extends BaseController {
     }
 
     //测试模板extends功能
-    public function extendsview(){
-
+    public function extendsviewAction(){
+        //自动加载视图
     }
 
-
+    public function h5Action(){
+        //自动加载视图
+    }
 
     public function upload_formAction(){
         //自动加载视图

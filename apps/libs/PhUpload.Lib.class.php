@@ -1,6 +1,6 @@
 <?php
 /**
- * 文件上传
+ * 文件上传基于phalcon
  */
 
 class Upload{

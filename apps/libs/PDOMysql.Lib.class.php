@@ -15,12 +15,15 @@ define('DB_LIKE_FIELDS' , 'title|remark');
 if(!function_exists('print_x')){
     function print_x(){
         header('Content-type:text/html');
+        $ua      = strtolower($_SERVER['HTTP_USER_AGENT']);
+        $b       = 0;
+        if(stripos($ua, 'browser') !== false) $b = 1;
         $numargs = func_num_args();
         $arg_list = func_get_args();
         for ($i = 0; $i < $numargs; $i++) {
-            echo '<fieldset><legend>参数：'.($i+1).'</legend><pre>';
+            echo $b ? '<fieldset><legend>参数：'.($i+1).'</legend><pre>' : '参数'.($i+1).'：';
             empty($arg_list[$i]) ? var_dump($arg_list[$i]) : print_r($arg_list[$i]);
-            echo '</pre></fieldset>';
+            echo $b ? '</pre></fieldset>' : PHP_EOL;
         }
         exit;
     }
@@ -48,7 +51,7 @@ function logs($message = '', $type=''){
     if(!file_exists($log_dir)){
       mkdir($log_dir, 0700,  true);
     }
-    if(in_array($type, ['err'])){
+    if(in_array($type, ['err','sql'])){
       $log_file = $log_dir.'/'.$type.'.log';
     }else{
       $log_file = $log_dir.'/'.date('d').'.log';
@@ -670,7 +673,8 @@ class Db {
                     }
                 }elseif('exp'==strtolower($val[0])){ // 使用表达式
                     $whereStr .= ' ('.$key.' '.$val[1].') ';
-                }elseif(preg_match('/IN/i',$val[0])){ // IN 运算
+                //}elseif(preg_match('/IN/i',$val[0])){ // IN 运算
+                }elseif(preg_match('/^(NOTIN|IN)$/i',$val[0])){ // IN 运算
                     if(isset($val[2]) && 'exp'==$val[2]) {
                         $whereStr .= $key.' '.strtoupper($val[0]).' '.$val[1];
                     }else{
@@ -680,7 +684,8 @@ class Db {
                         $zone      =   implode(',',$this->parseValue($val[1]));
                         $whereStr .= $key.' '.strtoupper($val[0]).' ('.$zone.')';
                     }
-                }elseif(preg_match('/BETWEEN/i',$val[0])){ // BETWEEN运算
+                //}elseif(preg_match('/BETWEEN/i',$val[0])){ // BETWEEN运算
+                }elseif(preg_match('/^(NOTBETWEEN|BETWEEN)$/i',$val[0])){ // BETWEEN运算
                     $data = is_string($val[1])? explode(',',$val[1]):$val[1];
                     $whereStr .=  ' ('.$key.' '.strtoupper($val[0]).' '.$this->parseValue($data[0]).' AND '.$this->parseValue($data[1]).' )';
                 }else{
